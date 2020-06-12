@@ -1,32 +1,28 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <h1 class="title">科协换届在线投票</h1>
+    <router-view />
   </div>
 </template>
 
-<style lang="less">
+<script>
+export default {
+  name: "app"
+};
+</script>
+
+<style lang="less" scoped>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+  min-height: 100vh;
+  background: url("~@/assets/background.jpg") top center/100vw 100vh fixed
+    no-repeat;
+  .title {
+    margin: 0;
+    padding: 20px 20px 10px;
+    font-size: 18px;
+    color: white;
+    line-height: 30px;
+    height: 30px;
   }
 }
 </style>
