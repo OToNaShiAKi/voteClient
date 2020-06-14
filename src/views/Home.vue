@@ -8,16 +8,10 @@
       background="transparent"
     >
       <van-tab v-for="(item, key) in departments" :key="key" :title="item.name" :name="key">
-        <van-swipe indicator-color="#ff976a" v-if="item.cards.length" class="tab-swiper" loop>
+        <van-swipe indicator-color="#ff976a" v-if="item.cards.length" class="tab-swiper">
           <van-swipe-item v-for="card in item.cards" :key="card._id">
             <div class="avatar">
-              <van-image
-                width="70"
-                height="70"
-                round
-                fit="cover"
-                :src="'http://localhost:5000/' + card.avatar"
-              />
+              <van-image width="70" height="70" round fit="cover" :src="'uploads/' + card.avatar" />
               <div class="info">
                 <p class="name">{{ card.name }}</p>
                 <p class="declaration">{{ card.declaration }}</p>
@@ -74,7 +68,7 @@ export default {
   }),
   async created() {
     const cards = await GetCandidates();
-    if (!cards.length) return;
+    if (!cards) return;
     for (let card of cards) {
       this.departments[card.department].cards.push(card);
     }

@@ -10,5 +10,9 @@ module.exports = {
         }
       }
     }
+  },
+  pages: {
+    index: "./src/pages/index/main.js",
+    check: "./src/pages/check/main.js"
   }
 }

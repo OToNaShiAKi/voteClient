@@ -7,14 +7,13 @@ import {
     Swipe,
     SwipeItem,
     Uploader,
-    RadioGroup,
-    Radio,
     Empty,
     Image as VanImage,
     Checkbox,
     Cell,
     CellGroup,
-    Tag
+    Tag,
+    ActionSheet
 } from 'vant'
 
 
@@ -25,11 +24,10 @@ Vue.use(Button)
     .use(Swipe)
     .use(SwipeItem)
     .use(Uploader)
-    .use(RadioGroup)
-    .use(Radio)
     .use(Empty)
     .use(VanImage)
     .use(Checkbox)
     .use(Cell)
     .use(CellGroup)
     .use(Tag)
+    .use(ActionSheet)

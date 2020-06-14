@@ -5,7 +5,7 @@ Notify.setDefaultOptions({
     duration: 1500
 })
 
-const base = process.env.NODE_ENV === 'development' ? '/api/' : 'http://hustmaths.top:3000/'
+const base = process.env.NODE_ENV === 'development' ? '/api/' : 'http://hustmaths.top:5000/'
 
 const Handle = (res) => {
     Notify({
@@ -42,4 +42,20 @@ export const VoteResult = () =>
         res.data.type = 'success';
         Handle(res.data)
         return res.data.result;
+    }).catch(Handle)
+
+export const GetVoters = () =>
+    axios.get(base + 'check/voters').then(res => {
+        if (res.data.status !== 200) throw res.data;
+        res.data.type = 'success';
+        Handle(res.data)
+        return res.data.voters;
+    }).catch(Handle)
+
+export const RemoveCell = (_id, key) =>
+    axios.get(base + 'check/remove', { params: { _id, key } }).then(res => {
+        if (res.data.status !== 200) throw res.data;
+        res.data.type = 'success';
+        Handle(res.data)
+        return true;
     }).catch(Handle)

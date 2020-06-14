@@ -4,27 +4,26 @@
       <van-uploader :after-read="avatarRead" v-model="avatar" :max-count="1" />
       <span>{{ avatar.length ? avatar[0].file.name : "选择照片" }}</span>
     </div>
-    <van-field label="候选人" v-model="name" />
-    <van-field label="竞选宣言" v-model="declaration" />
-    <van-field type="textarea" label="个人简介" autosize v-model="introduce" />
-    <div class="departments">
-      <label>所在部门</label>
-      <van-radio-group checked-color="#ff976a" v-model="department" direction="horizontal">
-        <van-radio
-          class="department"
-          v-for="item in departments"
-          :key="item.key"
-          :name="item.key"
-        >{{ item.name }}</van-radio>
-      </van-radio-group>
-    </div>
+    <van-cell-group class="cells">
+      <van-field label="竞选人" v-model="name" />
+      <van-field label="竞选宣言" v-model="declaration" />
+      <van-field label="竞选职位" readonly :value="department.name" @click="show = true" />
+      <van-field type="textarea" label="个人简介" autosize v-model="introduce" />
+    </van-cell-group>
     <van-button
-      :disabled="!(avatar.length && declaration && department && introduce && name)"
+      :disabled="!(avatar.length && declaration && department.key && introduce && name)"
       round
       type="warning"
       block
       @click="candidate"
     >添加候选人</van-button>
+    <van-action-sheet
+      close-on-click-action
+      cancel-text="取消"
+      :actions="departments"
+      v-model="show"
+      @select="select"
+    />
   </div>
 </template>
 
@@ -35,27 +34,31 @@ export default {
   name: "vote",
   data: () => ({
     name: "",
-    department: "",
+    department: {},
     introduce: "",
     declaration: "",
     avatar: [],
+    show: false,
     departments: [
       { name: "科协主席", key: "president" },
-      { name: "策划部", key: "office" },
-      { name: "媒体部", key: "media" },
-      { name: "编辑部", key: "editor" },
-      { name: "雁祉作坊", key: "workshop" },
-      { name: "One Echo", key: "onecho" }
+      { name: "策划部部长", key: "office" },
+      { name: "媒体部部长", key: "media" },
+      { name: "编辑部部长", key: "editor" },
+      { name: "雁祉作坊部长", key: "workshop" },
+      { name: "One Echo部长", key: "onecho" }
     ]
   }),
   methods: {
     avatarRead(file) {
       this.avatar = [file];
     },
+    select(ment) {
+      this.department = ment;
+    },
     candidate() {
       const person = new FormData();
       person.append("name", this.name);
-      person.append("department", this.department);
+      person.append("department", this.department.key);
       person.append("declaration", this.declaration);
       person.append("introduce", this.introduce);
       person.append("avatar", this.avatar[0].file);
@@ -77,19 +80,8 @@ export default {
       word-break: break-all;
     }
   }
-  .departments {
-    color: white;
-    label {
-      padding: 10px;
-      display: inline-block;
-      font-size: 14px;
-    }
-    .department {
-      margin: 0 10px 20px;
-      /deep/span {
-        color: white;
-      }
-    }
+  .cells {
+    margin-bottom: 30px;
   }
 }
 </style>

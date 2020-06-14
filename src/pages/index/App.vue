@@ -7,14 +7,14 @@
 
 <script>
 export default {
-  name: "app"
+  name: "App"
 };
 </script>
 
 <style lang="less" scoped>
 #app {
   min-height: 100vh;
-  background: url("~@/assets/background.jpg") top center/100vw 100vh fixed
+  background: #333 url("~@/assets/background.jpg") top center/100vw 100vh fixed
     no-repeat;
   .title {
     margin: 0;
